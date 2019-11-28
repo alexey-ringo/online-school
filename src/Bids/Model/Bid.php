@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Class Bid
  * @package App\Bids\Model
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Bids\Repository\BidRepository")
  */
 class Bid
 {
