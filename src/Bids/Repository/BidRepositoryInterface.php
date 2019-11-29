@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Bids\Repository;
 
+use App\Bids\Model\Bid;
+
 interface BidRepositoryInterface
 {
     /**

@@ -47,6 +47,10 @@ class BidRepository extends ServiceEntityRepository implements BidRepositoryInte
          */
         $bid = parent::findOneBy(['id' => $id]);
 
+        if($bid == null) {
+            throw new \RuntimeException("Заявка {$id} не найдена");
+        }
+
         return $bid;
     }
 
