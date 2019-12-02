@@ -54,7 +54,7 @@ class BidService implements BidServiceInterface
     {
         $bid = $this->repository->one($id);
         //Меняем статус заявки
-        $this->repository->call();
+        $bid->call();
 
         $this->repository->update($bid);
 
@@ -71,7 +71,7 @@ class BidService implements BidServiceInterface
     {
         $bid = $this->repository->one($id);
         //Меняем статус заявки
-        $this->repository->accept();
+        $bid->accept();
 
         $this->repository->update($bid);
 
@@ -89,7 +89,7 @@ class BidService implements BidServiceInterface
     {
         $bid = $this->repository->one($id);
         //Меняем статус заявки
-        $this->repository->reject();
+        $bid->reject();
 
         $this->repository->update($bid);
 
@@ -107,7 +107,7 @@ class BidService implements BidServiceInterface
     {
         $bid = $this->repository->one($id);
         //Меняем статус заявки
-        $this->repository->postponed();
+        $bid->postponed();
 
         $this->repository->update($bid);
 
@@ -125,7 +125,7 @@ class BidService implements BidServiceInterface
     {
         $bid = $this->repository->one($id);
         //Меняем статус заявки
-        $this->repository->confirm();
+        $bid->confirm();
 
         $this->repository->update($bid);
 

@@ -6,19 +6,19 @@ namespace App\Bids\Repository;
 use App\Bids\Model\Bid;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
+//use Doctrine\Common\Persistence\ObjectManager;
 
 class BidRepository extends ServiceEntityRepository implements BidRepositoryInterface
 {
-    //store, delete and update db table
+    //store, delete and update into db table
     private $manager;
-
-    public function __construct(ManagerRegistry $registry, EntityManager $manager)
+    
+    public function __construct(ManagerRegistry $registry, EntityManagerInterface $manager)    
     {
         $this->manager = $manager;
         parent::__construct($registry, Bid::class);
     }
-    
         
     
     /**

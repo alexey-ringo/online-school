@@ -1,3 +1,7 @@
 controllers:
     resource: ../../src/Controller/
     type: annotation
+api_bids:
+    resource: ../../src/Controller/API/Bids/
+    type: annotation
+    prefix: '/api/bids'

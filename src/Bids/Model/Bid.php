@@ -41,7 +41,7 @@ class Bid
 
     /**
      * @var string|null
-     * @ORM\Column(type="string", length=255, nullable = true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $middleName;
 
@@ -71,13 +71,13 @@ class Bid
 
     /**
      * @var string|null
-     * @ORM\Column(type="text", nullable = true)
+     * @ORM\Column(type="text")
      */
     private $information;
 
     /**
-     * @var int
-     * @ORM\Column(type="integer", length=100)
+     * @var int|null
+     * @ORM\Column(type="integer", length=100, nullable=true)
      */
     private $price;
 
@@ -94,8 +94,8 @@ class Bid
         $this->lastname = $lastname;
         $this->firstName = $firstName;
         $this->email = $email;
-        $this->phone = $phone;
         $this->age = $age;
+        $this->phone = $phone;        
         $this->employ = $employ;
 
         $this->status = self::WAIT_CALL;
@@ -103,6 +103,10 @@ class Bid
 
     public function accept(): void
     {
+        if($this->status === self::WAIT_CALL) {
+            throw new \LogicException('Нельзя принять непрозвоненную заявку');
+        }
+
         if($this->status === self::REJECTED) {
             throw new \LogicException('Нельзя принять отклоненную заявку');
         }
@@ -132,7 +136,7 @@ class Bid
      *
      * @return void
      */
-    public function called(): void
+    public function call(): void
     {
         if($this->status !== self::WAIT_CALL) {
             throw new \LogicException('Нельзя отправить в прозвонку');
@@ -293,9 +297,9 @@ class Bid
     /**
      * Get the value of price
      *
-     * @return  int
+     * @return  int|null
      */ 
-    public function getPrice(): int
+    public function getPrice(): ?int
     {
         return $this->price;
     }
