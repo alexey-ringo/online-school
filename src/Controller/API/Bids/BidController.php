@@ -22,6 +22,23 @@ class BidController extends AbstractController
     {
         $this->bidService = $bidService;
     }
+
+    /**
+     * @Route("/list", methods={"GET"})
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function list(Request $request): JsonResponse
+    {
+        $order = $request->query->get('order') ?? 'DESC';
+        $limit = $request->query->get('limit') ?? 10;
+        $offset = $request->query->get('offset') ?? 0;
+
+        $bids = $this->bidService->list(['id' => $order], (int)$limit, (int)$offset);
+
+        return $this->json($bids);
+    }
+    
     /**
      * create
      * 

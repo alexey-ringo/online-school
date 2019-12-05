@@ -13,6 +13,18 @@ class BidService implements BidServiceInterface
     {
         $this->repository = $repository;
     }
+    
+    /**
+     * @param array $orderBy
+     * @param int|null $limit
+     * @param int|null $offset
+     * @return Bid[]
+     */
+    public function list(array $orderBy = [], int $limit = null, int $offset = null): array
+    {
+        return $this->repository->all([], $orderBy, $limit, $offset);
+    }
+
     /**
      * create
      *

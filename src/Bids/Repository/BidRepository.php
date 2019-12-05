@@ -8,10 +8,11 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManagerInterface;
 //use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BidRepository extends ServiceEntityRepository implements BidRepositoryInterface
 {
-    //store, delete and update into db table
+    //for store, delete and update into db table
     private $manager;
     
     public function __construct(ManagerRegistry $registry, EntityManagerInterface $manager)    
@@ -22,22 +23,30 @@ class BidRepository extends ServiceEntityRepository implements BidRepositoryInte
         
     
     /**
-     * Get all
-     *
+     * @inheritdoc
+     * @param array $criteria
+     * @param array|null $orderBy
+     * @param int $limit
+     * @param null $offset
      * @return Bid[]
      */
-    public function all(): array
+    public function all(array $criteria = [], array $orderBy = null, $limit = 10, $offset = null): array
     {
-        $bids = parent::findAll();
+        if($orderBy == null){
+            $orderBy['id'] = 'DESC';
+        }
+
+        /** @var Bid[] $bids */
+        $bids = parent::findBy($criteria, $orderBy, $limit, $offset);
 
         return $bids;
     }
+
 
     /**
      * Get one
      *
      * @param  int $id
-     *
      * @return Bid
      */
     public function one(int $id): Bid
@@ -48,7 +57,7 @@ class BidRepository extends ServiceEntityRepository implements BidRepositoryInte
         $bid = parent::findOneBy(['id' => $id]);
 
         if($bid == null) {
-            throw new \RuntimeException("Заявка {$id} не найдена");
+            throw new NotFoundHttpException("Заявка {$id} не найдена");
         }
 
         return $bid;
@@ -59,10 +68,7 @@ class BidRepository extends ServiceEntityRepository implements BidRepositoryInte
      * save
      *
      * @param  Bid $bid
-     *
-     * @return Bid
-     * 
-     * @throws \Doctrine\ORM\ORMException
+     * @return Bid 
      */
     public function save(Bid $bid): Bid
     {
@@ -79,11 +85,7 @@ class BidRepository extends ServiceEntityRepository implements BidRepositoryInte
      * update
      *
      * @param  Bid $bid
-     *
-     * @return Bid
-     * 
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
+     * @return Bid     *
      */
     public function update(Bid $bid): Bid
     {

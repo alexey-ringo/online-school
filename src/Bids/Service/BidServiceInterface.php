@@ -25,6 +25,14 @@ interface BidServiceInterface
                            string $email, int $age, string $phone, 
                            string $employ, string $middleName = null,
                            string $information = null): Bid;
+    
+    /**
+     * @param array $orderBy
+     * @param int|null $limit
+     * @param int|null $offset
+     * @return Bid[]
+     */
+    public function list(array $orderBy = [], int $limit = null, int $offset = null): array;
 
     /**
      * call
