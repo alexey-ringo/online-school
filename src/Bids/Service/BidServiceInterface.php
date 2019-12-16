@@ -33,6 +33,62 @@ interface BidServiceInterface
      * @return Bid[]
      */
     public function list(array $orderBy = [], int $limit = null, int $offset = null): array;
+    
+    /**
+     * @param array $orderBy
+     * @param int|null $limit
+     * @param int|null $offset
+     * @return array
+     */
+    public function getWaiting(array $orderBy = [], int $limit = null, int $offset = null): array;
+    
+    /**
+     * getAccepted
+     *
+     * @param array $orderBy
+     * @param  int|null $orderBy
+     * @param  int|null $limit
+     * @param  mixed $offset
+     *
+     * @return Bid[]
+     */
+    public function getAccepted(array $orderBy = [], int $limit = null, int $offset = null): array;
+
+    /**
+     * @param array $orderBy
+     * @param int|null $limit
+     * @param int|null $offset
+     * 
+     * @return Bid[]
+     */
+    public function getRejected(array $orderBy = [], int $limit = null, int $offset = null): array;
+
+    /**
+     * @param array $orderBy
+     * @param int|null $limit
+     * @param int|null $offset
+     * 
+     * @return Bid[]
+     */
+    public function getPostponed(array $orderBy = [], int $limit = null, int $offset = null): array;
+
+    /**
+     * @param array $orderBy
+     * @param int|null $limit
+     * @param int|null $offset
+     * 
+     * @return Bid[]
+     */
+    public function getCalled(array $orderBy = [], int $limit = null, int $offset = null): array;
+
+    /**
+     * @param array $orderBy
+     * @param int|null $limit
+     * @param int|null $offset
+     * 
+     * @return Bid[]
+     */
+    public function getConfirmed(array $orderBy = [], int $limit = null, int $offset = null): array;
 
     /**
      * call
