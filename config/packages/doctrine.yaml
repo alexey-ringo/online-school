@@ -28,3 +28,9 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Bids/Model'
                 prefix: 'App\Bids\Model'
                 alias: Bids
+            Users:
+                is_bundle: false
+                type: annotation
+                dir: '%kernel.project_dir%/src/Users/Model'
+                prefix: 'App\Users\Model'
+                alias: Users
