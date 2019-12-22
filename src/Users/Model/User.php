@@ -14,34 +14,34 @@ use Doctrine\ORM\Mapping as ORM;
 class User
 {
     /**
-     * @var int 
-     * @ORM\Column(type="integer", length=11)
+     * @var int|null 
+     * @ORM\Column(type="integer", length=11, nullable=true)
      * @ORM\Id()
      * @ORM\GeneratedValue()
      */
     private $id;
 
     /**
-     * @var string
-     * @ORM\Column(type="string", length=255)
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $lastName;
 
     /**
-     * @var string
-     * @ORM\Column(type="string", length=255)
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $firstName;
 
     /**
-     * @var string
-     * @ORM\Column(type="string", length=255)
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $middleName;
 
     /**
-     * @var int
-     * @ORM\Column(type="integer", length=100)
+     * @var int|null
+     * @ORM\Column(type="integer", length=100, nullable=true)
      */
     private $age;
 
@@ -58,21 +58,21 @@ class User
     private $password;
 
     /**
-     * @var string
-     * @ORM\Column(type="string", length=255)
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $phone;
 
     /**
-     * @var string
-     * @ORM\Column(type="string", length=255)
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $employ;  
     
     /**
      * @var Privileges
-     * @ORM\ManyToOne(targetEntity="App\Users\Model\Privileges")
-     * @ORM\JoinColumn(name="privileges_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="App\Users\Model\Privileges", cascade={"persist"})
+     * @ORM\JoinColumn(name="privileges_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $privileges;
 
@@ -162,10 +162,90 @@ class User
     /**
      * Get the value of id
      *
-     * @return  int
+     * @return  int|null
      */ 
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
+    }
+
+    /**
+     * Get the value of privileges
+     *
+     * @return  Privileges
+     */ 
+    public function getPrivileges(): Privileges
+    {
+        return $this->privileges;
+    }
+
+    /**
+     * Get the value of lastName
+     *
+     * @return  string|null
+     */ 
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * Get the value of firstName
+     *
+     * @return  string|null
+     */ 
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Get the value of middleName
+     *
+     * @return  string|null
+     */ 
+    public function getMiddleName(): ?string
+    {
+        return $this->middleName;
+    }
+
+    /**
+     * Get the value of age
+     *
+     * @return  int|null
+     */ 
+    public function getAge(): ?int
+    {
+        return $this->age;
+    }
+
+    /**
+     * Get the value of email
+     *
+     * @return  string
+     */ 
+    public function getEmail(): string
+    {
+        return $this->email;
+    }
+
+    /**
+     * Get the value of phone
+     *
+     * @return  string|null
+     */ 
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    /**
+     * Get the value of employ
+     *
+     * @return  string|null
+     */ 
+    public function getEmploy(): ?string
+    {
+        return $this->employ;
     }
 }

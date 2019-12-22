@@ -5,3 +5,7 @@ api_bids:
     resource: ../../src/Controller/API/Bids/
     type: annotation
     prefix: '/api/bids'
+users:
+    resource: ../../src/Controller/API/Users/
+    type: annotation
+    prefix: '/api/users'
