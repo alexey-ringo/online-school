@@ -28,7 +28,7 @@ class BidService implements BidServiceInterface
     /**
      * create
      *
-     * @param  string $lastname
+     * @param  string $lastName
      * @param  string $firstName
      * @param  string $email
      * @param  int $age
@@ -39,12 +39,12 @@ class BidService implements BidServiceInterface
      *
      * @return Bid
      */
-    public function create(string $lastname, string $firstName, 
+    public function create(string $lastName, string $firstName,
                            string $email, int $age, string $phone, 
                            string $employ, string $middleName = null,
                            string $information = null): Bid
     {
-        $bid = new Bid($lastname, $firstName, $email, $age, $phone, $employ);
+        $bid = new Bid($lastName, $firstName, $email, $age, $phone, $employ);
 
         $bid->setInformation($information);
 

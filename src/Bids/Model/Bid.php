@@ -31,7 +31,7 @@ class Bid
      * @var string
      * @ORM\Column(type="string", length=255)
      */
-    private $lastname;
+    private $lastName;
 
     /**
      * @var string
@@ -87,11 +87,11 @@ class Bid
      */
     private $status;
 
-    public function __construct(string $lastname, string $firstName,
+    public function __construct(string $lastName, string $firstName,
                                 string $email, int $age,
                                 string $phone, string $employ)
     {
-        $this->lastname = $lastname;
+        $this->lastName = $lastName;
         $this->firstName = $firstName;
         $this->email = $email;
         $this->age = $age;
@@ -203,13 +203,13 @@ class Bid
     }
 
     /**
-     * Get the value of lastname
+     * Get the value of lastName
      *
      * @return  string
      */ 
-    public function getLastname(): string
+    public function getLastName(): string
     {
-        return $this->lastname;
+        return $this->lastName;
     }    
 
     
