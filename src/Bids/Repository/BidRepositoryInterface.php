@@ -27,7 +27,7 @@ interface BidRepositoryInterface
 
 
     /**
-     * save
+     * Create new Bid
      *
      * @param  Bid $bid
      *
@@ -36,7 +36,7 @@ interface BidRepositoryInterface
     public function save(Bid $bid): Bid;
 
     /**
-     * update
+     * update exist Bid
      *
      * @param  Bid $bid
      *

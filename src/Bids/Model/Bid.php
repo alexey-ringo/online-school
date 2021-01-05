@@ -195,7 +195,7 @@ class Bid
     }
 
     /**
-     * @return mixed $information
+     * @param string|null $information     *
      */
     public function setInformation(?string $information): void
     {
@@ -235,8 +235,8 @@ class Bid
     /**
      * Set the value of middleName
      *
-     * @param  string|null  $middleName     *
-     * 
+     * @param  string|null  $middleName
+     *
      */ 
     public function setMiddleName(?string $middleName): void
     {

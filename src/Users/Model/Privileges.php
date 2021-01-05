@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Users\Model;
 
 use Doctrine\ORM\Mapping as ORM;
+use ReflectionClass;
 
 /**
  * Class Privileges
@@ -27,43 +28,43 @@ class Privileges
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $login_to_dashboard = false;
+    private $loginToDashboard = false;
 
     /** 
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $call_bid = false;
+    private $callBid = false;
 
     /** 
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $reject_bid = false;
+    private $rejectBid = false;
 
     /** 
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $accept_bid = false;
+    private $acceptBid = false;
 
     /** 
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $postpone_bid = false;
+    private $postponeBid = false;
     
     /** 
      * @var bool
      * @ORM\Column(type="boolean")
      */
-    private $confirm_bid = false;
+    private $confirmBid = false;
 
     public static function createFree(): self
     {
         $prev = new self();
 
-        //$prev->confirm_bid = true;
+        //$prev->confirmBid = true;
 
         return $prev;
     }
@@ -77,88 +78,111 @@ class Privileges
         return;
     }
 
-    public function getPrivilegesList(): array
+    public function toArray(): array
     {
+        $list = [];
+
         $refl = new \ReflectionObject($this);
 
         $props = $refl->getProperties();
 
-        $list = [];
-
-        foreach($props as $prop) {
-            $list[] = $prop->getName();
+        foreach ($props as $prop){
+            if($prop->getName() == 'id') continue;
+            $prop->setAccessible(true);
+            $list[$prop->getName()] = $prop->getValue($this);
         }
 
         return $list;
     }
 
+    /**
+     * @return array
+     */
+    public static function privilegesList(): array
+    {
+        try{
+            $list = [];
+
+            $refl = new ReflectionClass(self::class);
+
+            $props = $refl->getProperties();
+
+            foreach ($props as $prop){
+                if($prop->getName() == 'id') continue;
+                $list[] = $prop->getName();
+            }
+
+        }catch (\ReflectionException $e){
+
+        }finally{
+            return $list;
+        }
+    }
+
     public function changePrivileges(string $prop, bool $state): void
     {
         //Если свойство существует
-        if(!property_exists($this, $prop)) {
+        if(property_exists($this, $prop)) {
             $this->$prop = $state;
         }        
 
         return;
     }    
 
-    /**
-     * canLoginToDashboard
-     *
-     * @return bool
-     */
-    private function canLoginToDashboard(): bool
+    public function can(string $prop): bool
     {
-        return $this->login_to_dashboard;
+        if(!property_exists($this, $prop)) {
+            throw new \InvalidArgumentException("Привилегия ошибочна");
+        }
+
+        return $this->{$prop};
     }
 
     /**
-     * canCallBid
-     *
      * @return bool
      */
-    private function canCallBid(): bool
+    public function isLoginToDashboard(): bool
     {
-        return $this->call_bid;
+        return $this->loginToDashboard;
     }
 
     /**
-     * canRejectBid
-     *
      * @return bool
      */
-    private function canRejectBid(): bool
+    public function isCallBid(): bool
     {
-        return $this->reject_bid;
+        return $this->callBid;
     }
 
     /**
-     * canAcceptBid
-     *
      * @return bool
      */
-    private function canAcceptBid(): bool
+    public function isRejectBid(): bool
     {
-        return $this->accept_bid;
+        return $this->rejectBid;
     }
 
     /**
-     * canPostponeBid
-     *
      * @return bool
      */
-    private function canPostponeBid(): bool
+    public function isAcceptBid(): bool
     {
-        return $this->postpone_bid;
+        return $this->acceptBid;
     }
 
     /**
-     * canConfirmBid
-     *
      * @return bool
      */
-    private function canConfirmBid(): bool
+    public function isPostponeBid(): bool
     {
-        return $this->confirm_bid;
+        return $this->postponeBid;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isConfirmBid(): bool
+    {
+        return $this->confirmBid;
     }
 }

@@ -8,7 +8,7 @@ use App\Bids\Model\Bid;
 interface BidServiceInterface
 {
     /**
-     * create
+     * Business logic for create new Bid
      *
      * @param  string $lastName
      * @param  string $firstName

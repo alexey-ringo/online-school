@@ -99,6 +99,7 @@ class User
 
         $prevs = new Privileges();
         $prevs->fromArray($privileges);
+        $user->changePrivileges($prevs);
 
         return $user;
     }
@@ -110,42 +111,42 @@ class User
         return;
     }
 
-    public function changeEmploy(string $employ): void
+    public function changeEmploy(?string $employ): void
     {
         $this->employ = $employ;
 
         return;
     }
 
-    public function changeAge(int $age): void
+    public function changeAge(?int $age): void
     {
         $this->age = $age;
 
         return;
     }
 
-    public function changeFirstName(string $firstName): void
+    public function changeFirstName(?string $firstName): void
     {
         $this->firstName = $firstName;
 
         return;
     }
 
-    public function changeLastName(string $lastName): void
+    public function changeLastName(?string $lastName): void
     {
         $this->lastName = $lastName;
 
         return;
     }
 
-    public function changeMiddleName(string $middleName): void
+    public function changeMiddleName(?string $middleName): void
     {
         $this->middleName = $middleName;
 
         return;
     }
 
-    public function changePhone(string $phone): void
+    public function changePhone(?string $phone): void
     {
         $this->phone = $phone;
 

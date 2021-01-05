@@ -4,12 +4,13 @@ declare(strict_types=1);
 namespace App\Users\Service;
 
 use App\Bids\Model\Bid;
+use App\Users\DataTransfer\UserDataTransfer;
 use App\Users\Model\User;
 use App\Users\Repository\UsersRepositoryInterface;
 
 class UsersService implements UsersServiceInterface
 {
-    /** @var UserRepositoryInterface */
+    /** @var UsersRepositoryInterface */
     private $repository;
 
     public function __construct(UsersRepositoryInterface $repository)
@@ -27,6 +28,8 @@ class UsersService implements UsersServiceInterface
      */
     public function signup(string $email, string $password): User
     {
+        $this->emailIsAvailable($email);
+
         $user = User::signup($email, $password);
 
         $this->repository->save($user);
@@ -45,9 +48,33 @@ class UsersService implements UsersServiceInterface
      */
     public function create(string $email, string $password, array $prevs): User
     {
+        $this->emailIsAvailable($email);
+
         $user = User::createFromAdmin($email, $password, $prevs);
 
-        $this->repository->save($user); //ToDo - verify email unique!
+        $this->repository->save($user);
+
+        return $user;
+    }
+
+    /**
+     * @param int $id
+     * @param UserDataTransfer $dataTransfer
+     * @return User
+     */
+    public function edit(int $id, UserDataTransfer $dataTransfer): User
+    {
+        $user = $this->repository->one($id);
+
+        $user->getPrivileges()->fromArray($dataTransfer->privileges);
+        $user->changeAge($dataTransfer->age);
+        $user->changeEmploy($dataTransfer->employ);
+        $user->changeFirstName($dataTransfer->firstName);
+        $user->changeLastName($dataTransfer->lastName);
+        $user->changeMiddleName($dataTransfer->middleName);
+        $user->changePhone($dataTransfer->phone);
+
+        $this->repository->update($user);
 
         return $user;
     }
@@ -88,5 +115,16 @@ class UsersService implements UsersServiceInterface
     public function one(int $id): User
     {
         return $this->repository->one($id);
+    }
+
+    private function emailIsAvailable(string $email): void
+    {
+        $user = $this->repository->all(['email' => $email], null, 1);
+
+        if(!empty($user)){
+            throw new \LogicException("email занят");
+        }
+
+        return;
     }
 }

@@ -65,7 +65,7 @@ class BidRepository extends ServiceEntityRepository implements BidRepositoryInte
 
 
     /**
-     * save
+     * create new Bid
      *
      * @param  Bid $bid
      * @return Bid 
@@ -82,10 +82,10 @@ class BidRepository extends ServiceEntityRepository implements BidRepositoryInte
     }
 
     /**
-     * update
+     * update exist Bid
      *
      * @param  Bid $bid
-     * @return Bid     *
+     * @return Bid
      */
     public function update(Bid $bid): Bid
     {

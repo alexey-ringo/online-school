@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace App\Users\Service;
 
 use App\Bids\Model\Bid;
+use App\Users\DataTransfer\UserDataTransfer;
 use App\Users\Model\User;
 
 /**
@@ -32,6 +33,13 @@ interface UsersServiceInterface
      * @return User
      */
     public function create(string $email, string $password, array $prevs): User;
+
+    /**
+     * @param int $id
+     * @param UserDataTransfer $dataTransfer
+     * @return User
+     */
+    public function edit(int $id, UserDataTransfer $dataTransfer): User;
 
     /**
      * createFromBid
